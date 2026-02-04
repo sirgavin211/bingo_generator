@@ -1,5 +1,3 @@
-
-
 :root {
   --text-color: #3E4049;
   --accent-color: #C8C8DC;
@@ -13,20 +11,21 @@
 body {
   background-color: var(--primary-color);
 }
-.app{
-  display:flex;
+
+.app {
+  display: flex;
   flex-direction: row;
   gap: 100px;
 
 }
 
-.input_panel{
+.input_panel {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
 
-.input_panel textarea{
+.input_panel textarea {
   height: 500px;
   padding: 11px 16px;
   border-radius: 12px;
@@ -35,9 +34,9 @@ body {
   background: none;
 }
 
-.control_panel{
+.control_panel {
   background-color: var(--accent-color);
-  display; flex;
+  display: flex;
   flex-direction: column;
   padding: 20px 30px;
   border: 5px solid var(--border-color);
@@ -47,24 +46,33 @@ body {
   margin-left: 50px;
 }
 
-.control_panel h1{
+.control_panel h1 {
   color: var(--text-color);
   margin: 0;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.input_panel button{
+.input_panel button {
   border-radius: 10px;
   padding: 11px 16px;
 }
 
-.board{
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 30px;
+  border-radius: 50x;
+}
+
+.grid_container {
   display: flex;
   flex-direction: column;
   gap: 0px;
 }
-.board_row{
+
+.board_row {
   display: flex;
 }
 
@@ -94,7 +102,7 @@ body {
 /**/
 /**/
 
-.input_panel input{
+.input_panel input {
   background-color: var(--accent-color);
   border: 3px solid var(--border-color);
   padding: 7px 10px;
@@ -104,21 +112,21 @@ body {
   font-family: "Jetbrains Mono", monospace;
 }
 
-.input_panel input[type="color"]{
+.input_panel input[type="color"] {
   padding: 0;
-  border:none;
+  border: none;
   height: 20px;
 }
 
 
-.settings{
-  display:flex;
+.settings {
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 
-.button_area{
+.button_area {
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -126,30 +134,31 @@ body {
 }
 
 
-.button_area input[type="button"]{
+.button_area input[type="button"] {
   font-family: "Jetbrains Mono", monospace;
   color: var(--text-color);
   border-radius: 20px;
-  border:none;
+  border: none;
   /* border: 2px solid var(--border-color); */
   font-weight: 700;
   padding: 8px 11px;
 }
 
-.button_area .generate_button{
+.button_area .generate_button {
   background-color: var(--secondary-color);
 }
-.button_area .print_button{
+
+.button_area .print_button {
   background-color: var(--thirdiary-color);
 }
 
 
-.color_input strong{
+.color_input strong {
   font-size: 12px;
   color: var(--text-color);
 }
 
-.color_input{
+.color_input {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -159,7 +168,7 @@ body {
 }
 
 
-.display{
+.display {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
@@ -172,12 +181,12 @@ body {
 }
 
 
-.display span{
+.display span {
   font-family: "Jetbrains Mono", monospace;
   font-family: 24px;
   color: var(--text-color);
 }
 
-.board h1{
+.board h1 {
   text-align: center;
 }

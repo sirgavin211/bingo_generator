@@ -11,6 +11,20 @@ const getFontSizeByCount = (wordCount: number): string => {
   return "1rem";
 }
 
+const formatTextForCell = (text: string): string => {
+  if (text === "FREE") return text;
+  
+  // Break long words (more than 10 characters) with hyphens at natural break points
+  return text.split(/\s+/).map(word => {
+    if (word.length > 10) {
+      // Try to find natural break points, otherwise break at 6 chars
+      const halfLength = Math.ceil(word.length / 2);
+      return word.slice(0, halfLength) + '-' + word.slice(halfLength);
+    }
+    return word;
+  }).join(' ');
+}
+
 interface CellProps {
   content: string;
   settings: Settings;
@@ -19,6 +33,7 @@ interface CellProps {
 const Cell: React.FC<CellProps> = ({ content, settings }) => {
 
   const wordCount = content.trim().split(/\s+/).filter(word => word.length > 0).length;
+  const formattedContent = formatTextForCell(content);
 
   const styles = {
     borderWidth: `${settings.border_thickness}px`,
@@ -27,6 +42,7 @@ const Cell: React.FC<CellProps> = ({ content, settings }) => {
     color: settings.text_color,
     backgroundColor: settings.cell_color,
     fontSize: getFontSizeByCount(wordCount),
+    padding: '8px',
   }
 
 
@@ -39,7 +55,7 @@ const Cell: React.FC<CellProps> = ({ content, settings }) => {
       {content === "FREE" ?
         <strong style={{ fontSize: getFontSizeByCount(wordCount) }}>{content}</strong>
         :
-        <p>{content}</p>
+        <p style={{ margin: 0, wordBreak: 'break-word', hyphens: 'auto', lineHeight: '1.1' }}>{formattedContent}</p>
       }
     </div>
   )

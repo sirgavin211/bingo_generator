@@ -1,18 +1,7 @@
 import './App.css'
 import { useState } from 'react';
 import Cell from "./components/Cell/Cell.tsx";
-
-
-
-
-interface Settings {
-  border_thickness: number,
-  border_color: string,
-  text_color: string,
-  heading: string,
-  background_color: string,
-  cell_color: string
-}
+import type { Settings } from './constants/types/settings.ts';
 
 
 
@@ -29,10 +18,9 @@ function App() {
     border_color: "#B1B1C7",
     text_color: "#3E4049",
     heading: "BINGO",
-    background_color: "#E5E5F2",
+    background_color: "#C8C8DC",
     cell_color: "#E5E5F2",
   })
-
 
   function generateBoard(): void {
     if (!words) {
@@ -45,29 +33,23 @@ function App() {
 
     console.log(data.length);
 
-
     while (scramble.length < 26) {
       const random_index: number = getRandomIndex(data.length);
       scramble = [...scramble, data[random_index]];
       data.splice(random_index, 1);
     }
 
-
     const result: string[][] = [];
 
     for (let i = 0; i <= scramble.length; i += 5) {
       result.push(scramble.slice(i, i + 5));
-
     }
 
     result[2][2] = "FREE"
     result.splice(5, 1);
 
-
     updateBoard(result);
-
   }
-
 
   function getRandomIndex(index: number): number {
     return Math.floor(Math.random() * index);
@@ -190,25 +172,28 @@ function App() {
 
         <div className='display'>
           {(board?.length ?? 0) > 0 ?
-            <div className='board'>
-              <h1>{settings.heading}</h1>
-              {board?.map((row: string[], row_index: number) => {
-                return (
-                  <div className='board_row' key={row_index}>
-                    {row.map((word: string) => {
-                      return (
-                        <>
-                          <Cell content={word} settings={settings} />
-                        </>
-                      )
-                    })}
-                  </div>
-                )
-              })}
+            <div className='board' style={{
+              backgroundColor: settings.background_color,
+              border: `${settings.border_thickness}px solid ${settings.border_color}`,
+            }}>
+              <h1 style={{ color: settings.text_color }}>{settings.heading}</h1>
+              <div className='grid_container'>
+                {board?.map((row: string[], row_index: number) => {
+                  return (
+                    <div className='board_row' key={row_index}>
+                      {row.map((word: string, cell_index: number) => {
+                        return (
+                          <Cell key={`${row_index}-${cell_index}`} content={word} settings={settings} />
+                        )
+                      })}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
             :
-            <span>Click the generate button to preview :DD </span>
+            <span style={{ color: settings.text_color }}>Click the generate button to preview :DD </span>
           }
 
         </div>
