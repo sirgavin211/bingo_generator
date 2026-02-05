@@ -11,7 +11,7 @@ import type { Settings } from './constants/types/settings.ts';
 function App() {
 
   const [board, updateBoard] = useState<string[][]>();
-  const [words, updateWords] = useState<string>();
+  const [words, updateWords] = useState<string>("Bohemian Rhapsody, Imagine, Smells Like Teen Spirit, Billie Jean, Hey Jude, Like a Rolling Stone, I Will Always Love You, Respect, Good Vibrations, Johnny B. Goode, Hotel California, Purple Rain, Hallelujah, Uptown Funk, Wonderwall, Someone Like You, Dancing Queen, Sweet Child O' Mine, Lose Yourself, Yesterday, Blinding Lights, Rolling in the Deep, Heroes, Thriller, Stairway to Heaven, Space Oddity, Shape of You, Mr. Brightside, Dreams, Paint It Black");
   const [separator, updateSeparator] = useState<string>(",");
   const [settings, updateSettings] = useState<Settings>({
     border_thickness: 1,
@@ -67,9 +67,13 @@ function App() {
 
           <div className='input_panel'>
 
-            <textarea placeholder="Put at least 25 words into the box, seperated by the character or string set to the right of me." onChange={(e) => {
-              updateWords(e.target.value);
-            }} />
+            <textarea
+              placeholder="Put at least 25 words into the box, seperated by the character or string set to the right of me."
+              onChange={(e) => {
+                updateWords(e.target.value);
+              }}
+              value={words}
+            />
 
             <div className='settings'>
 

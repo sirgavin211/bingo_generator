@@ -5,45 +5,80 @@
   --secondary-color: #ECCAC6;
   --thirdiary-color: #EADACF;
   --border-color: #B1B1C7;
-
 }
 
 body {
   background-color: var(--primary-color);
+  margin: 0;
+  padding: 20px;
+  font-family: 'Jetbrains Mono', monospace;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .app {
   display: flex;
-  flex-direction: row;
-  gap: 100px;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
+/* Responsive layout - stack on top of each other on smaller screens */
+@media (min-width: 1024px) {
+  .app {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 
 .input_panel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 20px;
+  width: 100%;
+}
+
+/* On larger screens, arrange inputs side by side */
+@media (min-width: 768px) {
+  .input_panel {
+    flex-direction: row;
+  }
 }
 
 .input_panel textarea {
-  height: 500px;
+  width: 100%;
+  min-height: 300px;
+  max-height: 500px;
   padding: 11px 16px;
   border-radius: 12px;
   color: var(--text-color);
   border: 3px solid var(--border-color);
   background: none;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
 }
 
 .control_panel {
   background-color: var(--accent-color);
   display: flex;
   flex-direction: column;
-  padding: 20px 30px;
+  padding: 20px;
   border: 5px solid var(--border-color);
   justify-content: center;
   font-family: 'Jetbrains Mono', monospace;
   border-radius: 20px;
-  margin-left: 50px;
+  width: 100%;
+}
+
+/* On larger screens, add margin to position the control panel */
+@media (min-width: 1024px) {
+  .control_panel {
+    margin-left: 20px;
+    width: calc(50% - 10px);
+  }
 }
 
 .control_panel h1 {
@@ -63,44 +98,45 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px 30px;
-  border-radius: 50x;
+  border-radius: 20px;
+  width: 100%;
 }
 
 .grid_container {
   display: flex;
   flex-direction: column;
   gap: 0px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .board_row {
   display: flex;
+  width: 100%;
 }
 
+/* Make sure cells maintain equal width */
+.board_row > div {
+  flex: 1;
+  min-width: 0; /* Allows flex items to shrink below content size */
+}
 
-/* .cell{ */
-/*   border: 1px solid white; */
-/*   padding: 11px 16px; */
-/*   width: 50px; */
-/*   height: 50px; */
-/*   justify-content: center; */
-/*   text-align: center; */
-/*   font-size: auto; */
-/*   align-items: center; */
-/*   margin: 0; */
-/* } */
-/**/
-/* .cell p{ */
-/*   margin: 0; */
-/*   text-align: center; */
-/*   word-wrap: break-word; */
-/*   overflow-wrap: break-word; */
-/*   hyphens: auto; */
-/*   font-size: clamp(0.8rem, 2vw, 1rem); */
-/*   line-height: 1.2; */
-/**/
-/* } */
-/**/
-/**/
+/* Adjust board size for different screens */
+@media (max-width: 768px) {
+  .board {
+    padding: 10px;
+  }
+
+  .grid_container {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid_container {
+    max-width: 300px;
+  }
+}
 
 .input_panel input {
   background-color: var(--accent-color);
@@ -110,38 +146,60 @@ body {
   color: var(--text-color);
   font-weight: 500;
   font-family: "Jetbrains Mono", monospace;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input_panel input[type="color"] {
   padding: 0;
   border: none;
   height: 20px;
+  width: 100px; /* Reduced width for compact UI */
 }
-
 
 .settings {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  width: 100%;
 }
 
+/* Stack settings vertically on smaller screens */
+@media (min-width: 768px) {
+  .settings {
+    gap: 20px;
+  }
+}
 
 .button_area {
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
 }
 
+/* On medium screens, arrange buttons horizontally */
+@media (min-width: 640px) {
+  .button_area {
+    flex-direction: row;
+  }
+}
 
 .button_area input[type="button"] {
   font-family: "Jetbrains Mono", monospace;
   color: var(--text-color);
   border-radius: 20px;
   border: none;
-  /* border: 2px solid var(--border-color); */
   font-weight: 700;
-  padding: 8px 11px;
+  padding: 12px 16px;
+  cursor: pointer;
+  flex: 1;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button_area input[type="button"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .button_area .generate_button {
@@ -152,21 +210,34 @@ body {
   background-color: var(--thirdiary-color);
 }
 
-
 .color_input strong {
   font-size: 12px;
   color: var(--text-color);
+  white-space: nowrap;
 }
 
 .color_input {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 10px;
   border: 3px solid var(--border-color);
   padding: 7px 10px;
   border-radius: 20px;
+  width: 100%;
 }
 
+/* Stack color inputs vertically on small screens */
+@media (max-width: 480px) {
+  .color_input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .color_input strong {
+    text-align: left;
+  }
+}
 
 .display {
   justify-content: center;
@@ -175,18 +246,53 @@ body {
   border: 5px solid var(--border-color);
   padding: 14px 20px;
   background-color: var(--accent-color);
-  width: 550px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 500px;
 }
 
+/* On larger screens, set a max width for the display area */
+@media (min-width: 1024px) {
+  .display {
+    width: calc(50% - 10px);
+    min-height: 500px;
+  }
+}
 
 .display span {
   font-family: "Jetbrains Mono", monospace;
-  font-family: 24px;
+  font-size: 24px;
   color: var(--text-color);
+  text-align: center;
 }
 
 .board h1 {
   text-align: center;
+  margin: 10px 0;
+  word-break: break-word;
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .control_panel,
+  .display {
+    padding: 15px;
+  }
+
+  .display span {
+    font-size: 18px;
+  }
+
+  .input_panel textarea {
+    min-height: 200px;
+  }
+
+  .button_area input[type="button"] {
+    padding: 10px 12px;
+  }
 }
