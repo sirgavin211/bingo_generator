@@ -22,6 +22,9 @@ function App() {
     cell_color: "#E5E5F2",
   })
 
+  const [board_amount, updateBoardAmount] = useState<number>();
+  const [printing_board, startPrint] = useState<boolean>(false);
+
   function generateBoard(): void {
     if (!words) {
       alert("Put some words into the freaking text box!!! D:(");
@@ -160,9 +163,28 @@ function App() {
                 />
               </div>
 
+              <input
+                type="number"
+                placeholder="Print Amount"
+                onChange={(e) => {
+                  updateBoardAmount(Number(e.target.value));
+                }}
+              />
+
+
+
               <div className='button_area'>
                 <input type='button' className="generate_button" value='Generate Board' onClick={generateBoard} />
-                <input type='button' className='print_button' value='Print Board' onClick={() => window.print()} />
+                <input
+                  type='button'
+                  className='print_button'
+                  value='Print Board'
+                  onClick={() => {
+                    startPrint(true);
+                    window.print();
+
+                  }}
+                />
               </div>
 
             </div>
