@@ -100,6 +100,9 @@ body {
   padding: 20px 30px;
   border-radius: 20px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .grid_container {
@@ -107,7 +110,10 @@ body {
   flex-direction: column;
   gap: 0px;
   width: 100%;
-  max-width: 500px;
+  max-width: 100%;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  /* Maintain square aspect ratio for the grid */
 }
 
 .board_row {
@@ -116,9 +122,10 @@ body {
 }
 
 /* Make sure cells maintain equal width */
-.board_row > div {
+.board_row>div {
   flex: 1;
-  min-width: 0; /* Allows flex items to shrink below content size */
+  min-width: 0;
+  /* Allows flex items to shrink below content size */
 }
 
 /* Adjust board size for different screens */
@@ -126,15 +133,11 @@ body {
   .board {
     padding: 10px;
   }
-
-  .grid_container {
-    max-width: 400px;
-  }
 }
 
 @media (max-width: 480px) {
-  .grid_container {
-    max-width: 300px;
+  .board {
+    padding: 5px;
   }
 }
 
@@ -154,7 +157,8 @@ body {
   padding: 0;
   border: none;
   height: 20px;
-  width: 100px; /* Reduced width for compact UI */
+  width: 50px;
+  /* Reduced width for compact UI */
 }
 
 .settings {
@@ -199,7 +203,7 @@ body {
 
 .button_area input[type="button"]:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .button_area .generate_button {
@@ -224,7 +228,7 @@ body {
   border: 3px solid var(--border-color);
   padding: 7px 10px;
   border-radius: 20px;
-  width: 100%;
+  width: 90%;
 }
 
 /* Stack color inputs vertically on small screens */
@@ -250,6 +254,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 500px;
+  overflow: auto;
 }
 
 /* On larger screens, set a max width for the display area */
@@ -294,5 +299,166 @@ body {
 
   .button_area input[type="button"] {
     padding: 10px 12px;
+  }
+}
+
+
+
+
+
+@media screen {
+  #print-area {
+    display: none;
+  }
+}
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #print-area,
+  #print-area *,
+  .board,
+  .board *,
+  .grid_container,
+  .grid_container *,
+  .board_row,
+  .board_row *,
+  .cell,
+  .cell * {
+    visibility: visible;
+  }
+
+  /* Force colors and backgrounds to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .board-container {
+    page-break-after: always;
+    break-after: page;
+    width: 100%;
+    height: 100vh;
+    /* Full viewport height for each board */
+    margin: 0;
+    padding: 0.5in;
+    /* Larger print margin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .board {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    width: 75%;
+    /* Wider board */
+    height: 70%;
+    /* Taller board */
+    max-width: 7in;
+    /* Larger max width */
+    max-height: 9in;
+    /* Larger max height */
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    /* Increased padding */
+    min-width: 5in;
+    /* Increased minimum width */
+    min-height: 6in;
+    /* Increased minimum height */
+  }
+
+  .board-container:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* Ensure all board styles are preserved when printing */
+  .board {
+    border-style: solid !important;
+  }
+
+  .board h1 {
+    margin: 10px 0;
+  }
+
+  .grid_container {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .board_row {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Ensure aspect ratio is maintained during printing */
+  .board_row>div {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Preserve cell styles during printing */
+  .cell {
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    border-style: solid !important;
+  }
+
+  /* Override default browser print settings that might remove backgrounds */
+  .board-container .board,
+  .board-container .cell {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+
+
+  .cell p,
+  .cell strong {
+    margin: 0;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.1;
+    max-width: 100%;
+    word-break: break-word;
+    font-size: 0.65rem;
+    /* Smaller font size for printing */
   }
 }
