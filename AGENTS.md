@@ -21,8 +21,10 @@ This is a React 19 + TypeScript + Vite application that generates customizable b
 
 ### Testing
 - **No test framework configured** - Project currently has no test setup
-- Consider adding Vitest + React Testing Library for unit/integration tests
+- To add testing: `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`
+- Configure Vitest in `vite.config.ts` and add test script to package.json
 - When implementing tests, use `*.test.tsx` or `*.spec.tsx` naming convention
+- Run single test: `npx vitest run path/to/test.test.tsx` (once Vitest is configured)
 
 ## Code Style Guidelines
 
@@ -53,6 +55,8 @@ import "./Cell.css";
 import './App.css';
 import './index.css';
 ```
+
+**File Extensions**: Always use explicit file extensions (.tsx, .ts) for imports to follow TypeScript strict module resolution.
 
 ### Naming Conventions
 - **Files**: PascalCase for components (e.g., `Cell.tsx`), kebab-case for utilities

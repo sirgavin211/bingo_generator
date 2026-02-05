@@ -1,11 +1,14 @@
 .cell {
-  width: 80px;
-  height: 80px;
+  aspect-ratio: 1/1; /* Maintain square shape */
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0;
   box-sizing: border-box;
+  min-width: 50px;
+  min-height: 50px;
+  width: 100%;
+  height: auto;
 }
 
 .cell p {
@@ -17,5 +20,18 @@
   line-height: 1.1;
   max-width: 100%;
   word-break: break-word;
+  font-size: clamp(0.6rem, 2vw, 1rem);
+}
+
+.cell strong {
+  margin: 0;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.1;
+  max-width: 100%;
+  word-break: break-word;
+  font-size: clamp(0.6rem, 2vw, 1rem);
 }
 

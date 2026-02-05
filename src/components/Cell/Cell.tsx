@@ -36,12 +36,12 @@ const Cell: React.FC<CellProps> = ({ content, settings }) => {
   const formattedContent = formatTextForCell(content);
 
   const styles = {
+    fontSize: getFontSizeByCount(wordCount),
     borderWidth: `${settings.border_thickness}px`,
     borderColor: settings.border_color,
     borderStyle: 'solid',
     color: settings.text_color,
     backgroundColor: settings.cell_color,
-    fontSize: getFontSizeByCount(wordCount),
     padding: '8px',
   }
 
@@ -53,9 +53,9 @@ const Cell: React.FC<CellProps> = ({ content, settings }) => {
   return (
     <div style={styles} className="cell">
       {content === "FREE" ?
-        <strong style={{ fontSize: getFontSizeByCount(wordCount) }}>{content}</strong>
+        <strong>{content}</strong>
         :
-        <p style={{ margin: 0, wordBreak: 'break-word', hyphens: 'auto', lineHeight: '1.1' }}>{formattedContent}</p>
+        <p>{formattedContent}</p>
       }
     </div>
   )
